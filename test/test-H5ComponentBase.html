@@ -9,77 +9,44 @@
 		body{
 			margin: 0;
 			padding: 0;
+			background-color: #000;
+			font-size: 12px;
 		}
-		.component{
-			width: 50%;
-			height: 50px;
-			margin-bottom: 20px;
-			background-color: #eee;
-			display: none;    /*解决使用fadeIn fadeOut需要先hide()的问题*/
+		.iphone{
+			width: 340px;
+			height: 540px;
+			background-color: #fff;
+			/*如下 通用的水平局中的方法*/
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			margin: -270px 0 0 -170px;
 		}
 	</style>
-	<!-- 加载必要的资源文件 -->
 	<script type="text/javascript" src="../js/lib/jquery.js"></script>
-	<script type="text/javascript" src="../js/lib/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="../js/lib/jquery.fullPage.js"></script>
-
-	<!-- 调用fullPage -->
-	<script type="text/javascript">
-		$(function (){   //页面载入完成后再执行这段代码
-			$('#h5').fullpage({
-				'sectionsColor': ['#254875', '#00FF00', '#254587', '#695684'], //少写了个s导致无效果注意！！！
-				onLeave: function( index, nextIndex, direction){
-					$('#h5').find('.page').eq(index-1).trigger('onLeave');
-				},  //注意有逗号，否则无效果
-				afterLoad: function( anchorLink, index){ //注意参数
-					$('#h5').find('.page').eq(index-1).trigger('onLoad');
-				}, //注意有逗号，否则无效果
-
-			});   //API如图
-
-			$('.page').on('onLeave', function(){
-				console.log($(this).attr('id'), '==>>', 'onLeave');
-				$(this).find('.component').trigger('onLeave');
-				// $(this).find('.component').triggerHandler('onLeave');
-			})
-					// 开发者工具里通过$('.page').trigger('onLeave')  trigger可以主动触发事件.另外注意缩进层次关系
-					// $('.page').eq(0).trigger('onLeave'),让第一个页面触发事件
-			$('.page').on('onLoad', function(){
-				console.log($(this).attr('id'), '==>>', 'onLoad');
-				$(this).find('.component').trigger('onLoad'); //这样写会有坑，因为page和component增添的事件的名字都一样，会有事件传递的死循环，内存栈爆了
-				//两个解决方法：1. triggerHandler,这个方法不会做传播, 只会执行事件对应的方法； 2. return false, 事件执行完不向上传播
-				// $(this).find('.component').triggerHandler('onLoad');
-			})	
-
-			// component入场动画
-			$('.component').on('onLoad', function(){
-				$(this).fadeIn();  //开发者工具调试的时候，必须先hide才能fadeIn和fadeOut.$('.component').hide(); - $('.component').fadeIn(); $('.component').fadeOut();
-				return false;
-			})	
-			// component出场动画	
-			$('.component').on('onLeave', function(){
-				$(this).fadeOut(); 
-				return false;
-			})
-			//载入有fadeIn效果， 移除有fadeOut效果
-			//注意DOM事件的循环传播-无限循环
-		});
-	</script>
+	<script type="text/javascript" src="../js/H5ComponentBase.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/H5ComponentBase.css">
 
 </head>
 <body>
-<!-- 验证fullpage.js切换页面 内容组织结构可用 组件动画效果 -->
-<div id="h5">
-	<div class="page section" id="page-1">
-		<div class="component log">logo</div>
-		<div class="component slogan">slogan</div>
-	</div>
-	<div class="page section" id="page-2">
-		<div class="component desc">描述信息</div>
-	</div>
-	<div class="page section" id="page-3">
-		<div class="component bar">柱状图</div>
-	</div>
-</div>
+<!-- 用于开发测试H5ComponentBase对象（基本的图文组件） -->
+<div class='iphone'></div>
+<script type="text/javascript">
+	var cfg = {
+		type: 'base',//注意，不要写成中文的冒号：
+		// text: 'nanaisstupid', //文本类型
+		bg: './p1_people.png',  //图片类型  //注意，不要写成中文的逗号
+		width: 514,
+		height: 306,
+		css: {
+			left:50,
+			top:50
+		},
+		center: true,
+	}
+
+	var h5 = new H5ComponentBase('myName', cfg);
+	$('.iphone').append(h5)  //注意，这里不是字符串'h5'，而是变量h5
+</script>
 </body>
 </html>
