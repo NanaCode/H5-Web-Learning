@@ -9,5 +9,5 @@
 	height: 100%;
 	background-color: #ddd;
 	background-size: 100%;//背景图片平铺铺满
-	background-repeat: no-repeat; //图片不重复
+	background-repeat: no-repeat; //使图片不重复
 }
