@@ -1,0 +1,13 @@
+/*H5對象的全局样式*/
+.h5{
+	height: 100%;
+}
+
+.h5_page{
+	position: relative;  //让子元素相对它去进行定位
+	width: 100%; 
+	height: 100%;
+	background-color: #ddd;
+	background-size: 100%;//背景图片平铺铺满
+	background-repeat: no-repeat; //图片不重复
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+	<title>好学网2018课程学习情况</title>
+
+	<!-- 基本资源库 -->
+	<script type="text/javascript" src="../js/lib/jquery.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="../js/lib/jquery.fullpage.js"></script>
+
+	<!-- H5对象资源&管理内容：页-组件 -->
+	<script type="text/javascript" src="../js/H5.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/H5.css">
+
+	<script type="text/javascript" src="../js/H5ComponentBase.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/H5ComponentBase.css">
+</head>
+
+<!-- 取消边距 -->
+<style type="text/css">  
+	body{
+		margin: 0;
+		padding: 0;
+	}
+</style>
+<body>
+<!-- 测试内容组织功能以及fullPage页面切换&组件切换 -->
+
+<!-- 内容组织管理，有可能会加载若干个资源 -->
+<script type="text/javascript">
+	$(function(){
+		// var page_face = h5.addPage('face');
+		// page_face.addComponent('face');
+
+		// h5.addPage('desc');
+		// h5.addPage('page-3');
+		// 链式调用
+		var h5 = new H5();
+			h5 //这里不缩进也可以？
+		    .addPage('face') //用于调试文本
+			    .addComponent('logo', {
+			    	text: 'logo',
+			    	width: 400,
+			    	height: 100,
+			    	css:{backgroundColor:'red', top:200},
+			    	center: true,
+			    })
+			    .addComponent('slogan', {
+			    	text: 'slogan',
+			    	width: 400,
+			    	height: 100,
+			    	css:{backgroundColor:'red', top:350},
+			    	center: true,
+			    })
+		    .addPage('desc')
+			    .addComponent('caption', {
+			    	text: '核心理念',
+			    	width: 400,
+			    	height: 100,
+			    	css:{backgroundColor:'green', top:350},
+			    	center: true,
+			    })
+		    .addPage('page-3', '课程方向分布页')	
+			    .addComponent('caption', {text: '课程方向分布'})  //坑，注意这里不要加分号
+		    .loader();  //之前被隐藏就出现了，this.el = $('<div class="h5" id="'+this.id+'">').hide();  H5对象承载内容组织管理的功能 可以在资源全部加载完成之后，再把整个页面呈现出来
+	})
+</script>
+</body>
+</html>
