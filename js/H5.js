@@ -50,7 +50,15 @@ var H5 = function(){
 	}
 	// H5对象初始化呈现
 	this.loader = function(){
-		this.el.fullpage(); //依赖classname里有section
+		this.el.fullpage({
+
+			onLeave: function( index, nextIndex, direction){
+				$(this).find('.h5_component').trigger('onLeave');
+			},  
+			afterLoad: function( anchorLink, index){ 
+				$(this).find('.h5_component').trigger('onLoad');
+			}
+		});  //坑，注意
 		this.el.show();
 	}
 	return this;
